@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.querySelector('.menu-toggle');
             const navMenu = document.querySelector('.nav-menu');
             const navLinks = document.querySelectorAll('.nav-link');
-            const dropdowns = document.querySelectorAll('.dropdown');
             const themeButtons = document.querySelectorAll('.theme-btn');
             const navIndicator = document.createElement('div');
             const header = document.querySelector('.header');
@@ -15,11 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Set initial position of nav indicator to active link
             setIndicatorPosition(document.querySelector('.nav-link.active'));
-            
-            // Show notification badge after 2 seconds
-            setTimeout(() => {
-                badge.classList.add('show');
-            }, 2000);
             
             // Mobile menu toggle
             menuToggle.addEventListener('click', function() {
@@ -38,17 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     bars[2].style.transform = 'none';
                 }
             });
-            
-            // Mobile dropdown toggle
-            if (window.innerWidth <= 768) {
-                dropdowns.forEach(dropdown => {
-                    const dropdownLink = dropdown.querySelector('.nav-link');
-                    dropdownLink.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        dropdown.classList.toggle('open');
-                    });
-                });
-            }
             
             // Navigation links hover effect
             navLinks.forEach(link => {
@@ -76,14 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Color theme switcher
-            themeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const theme = this.getAttribute('data-theme');
-                    changeColorTheme(theme);
-                });
-            });
-            
             // Scroll effect for header
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
@@ -105,11 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     bars[1].style.opacity = '1';
                     bars[2].style.transform = 'none';
                     
-                    // Reset dropdowns
-                    dropdowns.forEach(dropdown => {
-                        dropdown.classList.remove('open');
-                    });
-                    
                     // Reset indicator position
                     const activeLink = document.querySelector('.nav-link.active');
                     setIndicatorPosition(activeLink);
@@ -125,59 +95,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 navIndicator.style.width = `${width}px`;
                 navIndicator.style.left = `${left}px`;
-            }
-            
-            // Function to change color theme
-            function changeColorTheme(theme) {
-                let primaryColor, secondaryColor;
-                
-                switch(theme) {
-                    case 'blue':
-                        primaryColor = '#12c2e9';
-                        secondaryColor = '#c471ed';
-                        break;
-                    case 'green':
-                        primaryColor = '#11998e';
-                        secondaryColor = '#38ef7d';
-                        break;
-                    case 'purple':
-                        primaryColor = '#834d9b';
-                        secondaryColor = '#d04ed6';
-                        break;
-                    default: // Default theme
-                        primaryColor = '#FF5F6D';
-                        secondaryColor = '#FFC371';
-                }
-                
-                // Update CSS variables
-                document.documentElement.style.setProperty('--primary-color', primaryColor);
-                document.documentElement.style.setProperty('--secondary-color', secondaryColor);
-                
-                // Update gradient elements
-                const gradientElements = [
-                    '.logo-icon',
-                    '.nav-link::before',
-                    '.nav-indicator',
-                    '.badge',
-                    '.theme-btn.active'
-                ];
-                
-                gradientElements.forEach(selector => {
-                    const elements = document.querySelectorAll(selector);
-                    elements.forEach(el => {
-                        el.style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
-                    });
-                });
-                
-                // Update hover colors
-                navLinks.forEach(link => {
-                    link.style.setProperty('--hover-color', primaryColor);
-                });
-                
-                // Update active link color
-                const activeLinks = document.querySelectorAll('.nav-link.active');
-                activeLinks.forEach(link => {
-                    link.style.color = primaryColor;
-                });
             }
         });
