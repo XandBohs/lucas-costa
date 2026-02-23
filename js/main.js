@@ -12,9 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navIndicator.classList.add('nav-indicator');
             navMenu.appendChild(navIndicator);
             
-            // Set initial position of nav indicator to active link
-            setIndicatorPosition(document.querySelector('.nav-link.active'));
-            
             // Mobile menu toggle
             menuToggle.addEventListener('click', function() {
                 menuToggle.classList.toggle('active');
@@ -41,22 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 
-                link.addEventListener('click', function(e) {
-                    if (!this.parentElement.classList.contains('dropdown') || window.innerWidth <= 768) {
-                        e.preventDefault();
-                        navLinks.forEach(navLink => navLink.classList.remove('active'));
-                        this.classList.add('active');
-                        setIndicatorPosition(this);
-                    }
-                });
+            link.addEventListener('click', function() {
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                this.classList.add('active');
+                setIndicatorPosition(this);
             });
-            
-            // Reset indicator position when mouse leaves the nav menu
-            navMenu.addEventListener('mouseleave', function() {
-                if (window.innerWidth > 768) {
-                    const activeLink = document.querySelector('.nav-link.active');
-                    setIndicatorPosition(activeLink);
-                }
             });
             
             // Scroll effect for header
@@ -67,22 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     header.style.padding = '0';
                     header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                }
-            });
-            
-            // Window resize handler
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    navMenu.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                    const bars = document.querySelectorAll('.bar');
-                    bars[0].style.transform = 'none';
-                    bars[1].style.opacity = '1';
-                    bars[2].style.transform = 'none';
-                    
-                    // Reset indicator position
-                    const activeLink = document.querySelector('.nav-link.active');
-                    setIndicatorPosition(activeLink);
                 }
             });
             
