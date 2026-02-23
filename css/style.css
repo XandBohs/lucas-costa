@@ -179,3 +179,7 @@
                 display: none;
             }
         }
+
+    html {
+        scroll-behavior: smooth;
+    }
