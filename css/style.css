@@ -128,6 +128,21 @@
             transition: all 0.3s ease;
         }
 
+    h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+    }
+
+    p {
+        font-size: 1.25rem;
+        color: var(--dark-color);
+        line-height: 1.6;
+        max-width: 600px;
+    }    
+
         /* Mobile Styles */
         @media screen and (max-width: 768px) {
             .menu-toggle {
@@ -178,8 +193,19 @@
             .nav-indicator {
                 display: none;
             }
+            h1 {
+                font-size: 2.5rem;
+                padding: 5%;
+            }
+            p {
+                font-size: 1rem;
+                padding: 5%;
+            }
         }
 
     html {
         scroll-behavior: smooth;
     }
+
+
+
